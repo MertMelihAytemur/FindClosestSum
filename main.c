@@ -5,56 +5,55 @@ void swap(int *xp, int *yp);
 
 void sort(int array[], int array_size);
 
-int * findElements(int firstArray[], int secondArray[], int target, int array_size);
+int * find_elements(int first_array[], int second_array[], int target, int array_size);
 
 #define ARRAY_SIZE 6
 
 int main() {
-    int firstArray[] = {-1, 3, 8, 2, 9, 5};
-    int secondArray[] = {4, -5, 2, 10, 5, 20};
+    int first_array[] = {-1, 3, 8, 2, 9, 5};
+    int second_array[] = {4, -5, 2, 10, 5, 20};
     int target = 10;
     int *result;
 
-    result =  findElements(firstArray,secondArray,target,ARRAY_SIZE);
+    result =  find_elements(first_array,second_array,target,ARRAY_SIZE);
     printf("[%d,%d]",result[0],result[1]);
 
     return 0;
 }
 
-int * findElements( int firstArray[],
-                  int secondArray[],
+int * find_elements( int first_array[],
+                  int second_array[],
                   int target,
                   int array_size
                   ) {
-    sort(firstArray,array_size);
-    sort(secondArray,array_size);
-
-
+    sort(first_array,array_size);
+    sort(second_array,array_size);
+    
     int i = 0,j = array_size  -1;
-    int smallestDiff = abs(firstArray[0] + secondArray[0] - target);
-    int closestPair[] = {firstArray[0],secondArray[0]};
+    int smallest_diff = abs(first_array[0] + second_array[0] - target);
+    int closest_pair[] = {first_array[0],second_array[0]};
 
     while(i < array_size && j>=0){
-        int v1 = firstArray[i];
-        int v2 = secondArray[j];
+        int first_pair = first_array[i];
+        int second_pair = second_array[j];
 
-        int currentDiff = (v1 + v2 - target);
-        if(abs(currentDiff) < smallestDiff){
-            smallestDiff = abs(currentDiff);
-            closestPair[0] = v1;
-            closestPair[1] = v2;
+        int current_diff = (first_pair + second_pair - target);
+        if(abs(current_diff) < smallest_diff){
+            smallest_diff = abs(current_diff);
+            closest_pair[0] = first_pair;
+            closest_pair[1] = second_pair;
         }
-        if (currentDiff == 0) {
-            return closestPair;
+        if (current_diff == 0) {
+            return closest_pair;
         }
-        else if (currentDiff < 0) {
+        else if (current_diff < 0) {
             i += 1;
         }
         else {
             j -= 1;
         }
     }
-    return closestPair;
+    return closest_pair;
 }
 
 void sort( int array[], int array_size) {
